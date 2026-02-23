@@ -36,6 +36,7 @@ Vue.createApp({
         //     { id: 1, text: "Test note 1"}, 
         //     { id: 2, text: "Another note"}
         // ]; 
+        this.loadFromStorage();
     },
 
     methods: {
@@ -93,12 +94,15 @@ Vue.createApp({
         // COMMIT 4 — Persistence
         // ================================
 
+
         saveToStorage() {
             // TODO (Commit 4):
             // Save this.stickies to localStorage.
             //
             // Must use:
             // JSON.stringify(...)
+            localStorage.setItem("stickies", JSON.stringify(this.stickies));
+
         },
 
         loadFromStorage() {
@@ -112,6 +116,8 @@ Vue.createApp({
             // In Commit 4:
             // - Call this method from mounted().
             // - Remove hard-coded notes from Commit 2.
+            const stickiesString = localStorage.getItem("stickies");
+            this.stickies = JSON.parse(stickiesString || "[]"); 
         }
     },
 
@@ -121,6 +127,7 @@ Vue.createApp({
                 // TODO (Commit 4):
                 // Call this.saveToStorage() here so edits
                 // auto-save without clicking any button.
+                this.saveToStorage(); 
             },
             deep: true
         }
