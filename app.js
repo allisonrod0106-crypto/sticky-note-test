@@ -30,10 +30,12 @@ Vue.createApp({
         //
         // In Commit 4:
         // - Replace this with a call to loadFromStorage().
-        this.stickies = [
-            { id: 1, text: "Test note 1"}, 
-            { id: 2, text: "Another note"}
-        ]; 
+
+        //hard coded test notes 
+        // this.stickies = [
+        //     { id: 1, text: "Test note 1"}, 
+        //     { id: 2, text: "Another note"}
+        // ]; 
     },
 
     methods: {
@@ -52,6 +54,8 @@ Vue.createApp({
             // For id:
             // - Use crypto.randomUUID() if available
             // - Otherwise use a fallback (Date.now() + Math.random())
+            const newSticky = { id: crypto.randomUUID(), text: "Sample Text"};
+            this.stickies.push(newSticky);
         },
 
         deleteStickie(id) {
@@ -60,6 +64,7 @@ Vue.createApp({
             //
             // Use Array.filter()
             // Reassign the result back to this.stickies
+            this.stickies = this.stickies.filter(sticky => sticky.id !== id);
         },
 
         // ================================
